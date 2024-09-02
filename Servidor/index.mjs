@@ -15,7 +15,7 @@ app.use(express.urlencoded({extended:true}));
 
 
 app.use(donanteRoutes);
-app.use(inventarioRoutes);
+app.use(inventarioRoutes); 
 app.use(institucionRoutes);
 app.use(donadoRoutes);
 
