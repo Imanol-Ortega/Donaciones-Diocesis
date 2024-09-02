@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import FormDonante from "./modulos/Donado/formulario/FormDonante";
-import VistaDonante from "./modulos/Donado/vista/VistaDonante";
-import CardDonante from "./modulos/Donado/card/CardDonante";
+import FormDonante from "./modulos/Donante/formulario/FormDonante";
+import VistaDonante from "./modulos/Donante/vista/VistaDonante";
+import CardDonante from "./modulos/Donante/card/CardDonante";
 import NotFound from "./componentes/NotFound/NotFound";
 
 function App() {
