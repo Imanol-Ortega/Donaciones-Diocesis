@@ -52,9 +52,9 @@ function VistaDonante() {
 
     return (
         <div>
-            <div className="h-screen font-sans ">
+            <div className="h-full font-sans">
                 <div className="container mx-auto h-full flex flex-1 justify-center items-center">
-                    <div className="w-full max-w-6xl -mt-48">
+                    <div className="w-full max-w-6xl h-[100vh]">
                         <div className="py-8">
                             <div className="flex w-full justify-center font-sans font-semibold text-xl mb-5">
                                 <p className="text-white font-bold">
@@ -116,6 +116,11 @@ function VistaDonante() {
                                                                         TELEFONO
                                                                     </div>
                                                                 </th>
+                                                                <th className="p-2 whitespace-nowrap">
+                                                                    <div className="font-semibold text-left">
+                                                                        DIRECCIÓN
+                                                                    </div>
+                                                                </th>
 
                                                                 <th className="p-2 whitespace-nowrap">
                                                                     <div className="font-semibold text-left">
@@ -141,35 +146,42 @@ function VistaDonante() {
                                                                             tipo.donanteid
                                                                         }
                                                                     >
-                                                                        <td className="p-2 whitespace-nowrap">
+                                                                        <td className="p-2 whitespace-nowrap w-10 ">
                                                                             <div className="text-left">
                                                                                 {
                                                                                     tipo.donanteid
                                                                                 }
                                                                             </div>
                                                                         </td>
-                                                                        <td className="p-2 whitespace-nowrap">
+                                                                        <td className="p-2 whitespace-nowrap max-w-32 text-wrap">
                                                                             <div className="text-left">
                                                                                 {
                                                                                     tipo.donantenombre
                                                                                 }
                                                                             </div>
                                                                         </td>
-                                                                        <td className="p-2 whitespace-nowrap">
+                                                                        <td className="p-2 whitespace-nowrap w-32 text-wrap">
                                                                             <div className="text-left">
                                                                                 {
                                                                                     tipo.donantetelefono
                                                                                 }
                                                                             </div>
                                                                         </td>
+                                                                        <td className="p-2 whitespace-nowrap max-w-40 text-wrap">
+                                                                            <div className="text-left">
+                                                                                {
+                                                                                    tipo.donantedireccion
+                                                                                }
+                                                                            </div>
+                                                                        </td>
 
-                                                                        <td className="p-2 whitespace-nowrap">
-                                                                            <div className="text-left text-red-600">
+                                                                        <td className="p-2 whitespace-nowrap w-28 text-wrap">
+                                                                            <div className="bg-red-600 text-white p-1 rounded text-center w-24">
                                                                                 Pendiente
                                                                             </div>
                                                                         </td>
 
-                                                                        <td className="p-2 whitespace-nowrap">
+                                                                        <td className="p-2 whitespace-nowrap w-10">
                                                                             <div className="text-right -ml-10">
                                                                                 <Link
                                                                                     className="px-3 py-1 text-white font-light tracking-wider bg-cyan-500 hover:bg-cyan-600 rounded text-xs ml-1"

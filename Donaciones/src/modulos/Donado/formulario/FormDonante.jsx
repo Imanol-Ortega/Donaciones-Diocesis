@@ -86,7 +86,7 @@ function FormDonante() {
                                 </label>
                                 <textarea
                                     className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100 resize-none"
-                                    placeholder="Escriba su lugar de residencia"
+                                    placeholder="Escriba su lugar de residencia o de donde buscar"
                                     {...register("direccion", {
                                         required: true,
                                     })}

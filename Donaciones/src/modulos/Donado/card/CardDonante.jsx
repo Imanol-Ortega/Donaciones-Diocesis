@@ -9,9 +9,11 @@ import { guardarInventarioRequest } from "../../Inventario/api/inventario.api";
 function CardDonante() {
     const params = useParams();
     const navigate = useNavigate();
-    const [nombre, setNombre] = useState("");
-    const [cantidad, setCantidad] = useState("");
-    const [descripcion, setDescripcion] = useState("");
+    const [inventarioTemp, setInventarioTemp] = useState({
+        nombre: "",
+        cantidad: 0,
+        descripcion: "",
+    });
 
     const [donacion, setDonacion] = useState([]);
 
@@ -35,49 +37,59 @@ function CardDonante() {
         });
     };
 
+    const agregar = () => {
+        console.log(inventarioTemp);
+    };
+
     useEffect(() => {
         cargarDonacion();
     }, []);
 
     return (
         <div>
-            <div className="h-screen font-sans ">
+            <div className="h-full font-sans">
                 <div className="container mx-auto h-full flex flex-1 justify-center items-center">
-                    <div className="w-full max-w-5xl">
-                        <Link
-                            className="px-4 py-1 mt-4 text-white font-light tracking-wider bg-blue-600 hover:bg-blue-700 rounded"
-                            to="/donacion/vista"
-                        >
-                            Volver
-                        </Link>
+                    <div className="max-w-6xl h-[100vh]">
                         <div className="py-8">
-                            <div className="flex flex-row  max-w-5xl bg-white rounded shadow-xl align-middle justify-between py-5">
+                            <div className="flex w-full justify-center font-sans font-semibold text-xl mb-5">
+                                <p className="text-white font-bold">
+                                    AGREGAR DONACION
+                                </p>
+                            </div>
+                            <Link
+                                className="px-6 py-1 mt-4 text-white font-light tracking-wider bg-blue-600 hover:bg-blue-700 rounded back"
+                                to="/donacion/vista"
+                            >
+                                Volver
+                            </Link>
+
+                            <div className="flex flex-row  max-w-5xl bg-white rounded shadow-xl align-middle justify-between py-5 mt-4">
                                 <div className="max-w-xl py-2 mx-4 ">
-                                    <h3 className="border-b-2 border-blue-400 w-20">
+                                    <h3 className="border-b-2 border-blue-400 w-full">
                                         Nombre:{" "}
                                     </h3>
                                     <p>{donacion.donantenombre}</p>
                                 </div>
                                 <div className="max-w-xl py-2 mx-4 ">
-                                    <h3 className="border-b-2 border-blue-400 w-20">
+                                    <h3 className="border-b-2 border-blue-400 w-full">
                                         Teléfono:
                                     </h3>
                                     <p> {donacion.donantetelefono}</p>
                                 </div>
                                 <div className="max-w-xl py-2 mx-4 ">
-                                    <h3 className="border-b-2 border-blue-400 w-20">
+                                    <h3 className="border-b-2 border-blue-400 w-full">
                                         Dirección:
                                     </h3>
                                     <p>{donacion.donantedireccion}</p>
                                 </div>
                                 <div className="max-w-xl py-2 mx-4 ">
-                                    <h3 className="border-b-2 border-blue-400 w-20">
+                                    <h3 className="border-b-2 border-blue-400 w-full">
                                         Donación:
                                     </h3>
                                     <p>{donacion.donantedonacion}</p>
                                 </div>
                                 <div className="max-w-xl py-2 mx-4 ">
-                                    <h3 className="border-b-2 border-blue-400 w-28">
+                                    <h3 className="border-b-2 border-blue-400 w-full">
                                         Observación:
                                     </h3>
                                     <p>{donacion.donanteobservacion}</p>
@@ -87,7 +99,10 @@ function CardDonante() {
                                 <div className="leading-loose">
                                     <div className="max-w-full p-10 bg-white rounded shadow-xlfont-thin">
                                         <div>
-                                            <button className="px-4 py-1 mt-4 text-white font-light tracking-wider bg-blue-800 hover:bg-blue-700 rounded">
+                                            <button
+                                                className="px-4 py-1 mt-4 text-white font-light tracking-wider bg-blue-800 hover:bg-blue-700 rounded"
+                                                onClick={agregar}
+                                            >
                                                 Agregar
                                             </button>
 
@@ -100,6 +115,13 @@ function CardDonante() {
                                                         className="w-96 px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100"
                                                         type="text"
                                                         placeholder="Escriba el nombre"
+                                                        onChange={(e) => {
+                                                            setInventarioTemp({
+                                                                ...inventarioTemp,
+                                                                nombre: e.target
+                                                                    .value,
+                                                            });
+                                                        }}
                                                     />
                                                 </div>
                                                 <div className="max-w-2xl">
@@ -110,6 +132,14 @@ function CardDonante() {
                                                         className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100"
                                                         type="number"
                                                         placeholder="Escriba la cantidad"
+                                                        onChange={(e) => {
+                                                            setInventarioTemp({
+                                                                ...inventarioTemp,
+                                                                cantidad:
+                                                                    e.target
+                                                                        .value,
+                                                            });
+                                                        }}
                                                     />
                                                 </div>
                                             </div>
@@ -119,6 +149,13 @@ function CardDonante() {
                                             <textarea
                                                 className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100 resize-none"
                                                 placeholder="Escriba una descripción"
+                                                onChange={(e) => {
+                                                    setInventarioTemp({
+                                                        ...inventarioTemp,
+                                                        descripcion:
+                                                            e.target.value,
+                                                    });
+                                                }}
                                             />
                                         </div>
                                     </div>
