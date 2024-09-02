@@ -48,7 +48,7 @@ function VistaDonante() {
         const endOffset = itemOffset + itemsPerPage;
         setCurrentItems(filterPedido.slice(itemOffset, endOffset));
         setPageCount(Math.ceil(filterPedido.length / itemsPerPage));
-    }, [itemOffset, itemsPerPage, filterPedido]);
+    }, [itemOffset, filterPedido]);
 
     return (
         <div>
