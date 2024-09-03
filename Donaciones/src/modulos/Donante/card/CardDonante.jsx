@@ -94,7 +94,7 @@ function CardDonante() {
                                 </p>
                             </div>
                             <Link
-                                className="px-6 py-1 mt-4 text-white font-light tracking-wider bg-blue-600 hover:bg-blue-700 rounded back"
+                                className="px-6 py-1 mt-4 text-white font-light tracking-wider bg-blue-600 hover:bg-blue-700 rounded "
                                 to="/donacion/vista"
                             >
                                 Volver
