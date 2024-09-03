@@ -47,7 +47,7 @@ function FormDonante() {
                             >
                                 <div className="flex justify-start">
                                     <p className="text-black text-center text-xl font-bold border-b-2 border-blue-600 w-full py-2">
-                                        Donar
+                                        Donacion
                                     </p>
                                 </div>
 
@@ -135,7 +135,7 @@ function FormDonante() {
                                         className="px-4 py-1 mt-4 text-white font-light tracking-wider bg-blue-800 hover:bg-blue-700 rounded"
                                         type="submit"
                                     >
-                                        Enviar
+                                        Guardar
                                     </button>
                                 </div>
                             </form>

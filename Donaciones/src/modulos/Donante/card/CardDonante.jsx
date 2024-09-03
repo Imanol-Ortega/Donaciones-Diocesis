@@ -18,6 +18,7 @@ function CardDonante() {
     const [inventario, setInventario] = useState([]);
 
     const [donacion, setDonacion] = useState([]);
+    const [error, setError] = useState("");
 
     const cargarDonacion = async () => {
         try {
@@ -39,22 +40,32 @@ function CardDonante() {
     };
 
     const agregar = () => {
-        setInventario([
-            ...inventario,
-            {
-                nombre: inventarioTemp.nombre,
-                cantidad: inventarioTemp.cantidad,
-                descripcion: inventarioTemp.descripcion,
-                donanteid: donacion.donanteid,
-            },
-        ]);
-        setInventarioTemp({
-            nombre: "",
-            cantidad: 0,
-            descripcion: "",
-            donanteid: 0,
-        });
-        console.log(inventario);
+        if (
+            inventarioTemp.nombre == "" ||
+            inventarioTemp.cantidad == 0 ||
+            inventarioTemp.descripcion == "" ||
+            inventarioTemp.donanteid == 0
+        ) {
+            setError("Complete los campos");
+        }
+        {
+            setInventario([
+                ...inventario,
+                {
+                    nombre: inventarioTemp.nombre,
+                    cantidad: inventarioTemp.cantidad,
+                    descripcion: inventarioTemp.descripcion,
+                    donanteid: donacion.donanteid,
+                },
+            ]);
+            setInventarioTemp({
+                nombre: "",
+                cantidad: 0,
+                descripcion: "",
+                donanteid: 0,
+            });
+            console.log(inventario);
+        }
     };
 
     const hanndleSubmit = async () => {
@@ -146,6 +157,7 @@ function CardDonante() {
                                                             ""
                                                         }
                                                         onChange={(e) => {
+                                                            setError("");
                                                             setInventarioTemp({
                                                                 ...inventarioTemp,
                                                                 nombre: e.target
@@ -167,6 +179,7 @@ function CardDonante() {
                                                             0
                                                         }
                                                         onChange={(e) => {
+                                                            setError("");
                                                             setInventarioTemp({
                                                                 ...inventarioTemp,
                                                                 cantidad:
@@ -188,6 +201,7 @@ function CardDonante() {
                                                     ""
                                                 }
                                                 onChange={(e) => {
+                                                    setError("");
                                                     setInventarioTemp({
                                                         ...inventarioTemp,
                                                         descripcion:
@@ -196,6 +210,11 @@ function CardDonante() {
                                                 }}
                                             />
                                         </div>
+                                        {error && (
+                                            <div className="text-red-500 font-semibold">
+                                                {error}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                                 <div className=" max-w-6xl">

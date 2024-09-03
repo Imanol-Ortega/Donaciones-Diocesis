@@ -56,15 +56,22 @@ function VistaDonante() {
                 <div className="container mx-auto h-full flex flex-1 justify-center items-center">
                     <div className="w-full max-w-6xl h-[100vh]">
                         <div className="py-8">
-                            <div className="flex w-full justify-center font-sans font-semibold text-xl mb-5">
-                                <p className="text-white font-bold">
-                                    DONACIONES
-                                </p>
+                            <div className="w-full max-w-5xl justify-end flex ml-28">
+                                <Link
+                                    to="/donar/nuevo"
+                                    className=" ml-2 px-4 py-2.5 text-white font-light tracking-wider bg-blue-800 hover:bg-blue-700 rounded"
+                                >
+                                    Agregar Donacion
+                                </Link>
                             </div>
-
-                            <div className="my-2 flex justify-end mr-4 ml-4 p-1 bg-blue-500 rounded sm:flex-row flex-col">
+                            <div className="my-2 flex justify-center mr-4 ml-4 p-1 bg-blue-500 rounded sm:flex-row flex-col">
                                 <div className="block relative">
-                                    <span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+                                    <div className="flex w-full justify-center font-sans font-semibold text-xl py-2">
+                                        <p className="text-white font-bold">
+                                            DONACIONES
+                                        </p>
+                                    </div>
+                                    {/*<span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
                                         <svg
                                             viewBox="0 0 24 24"
                                             className="h-4 w-4 fill-current text-gray-500"
@@ -79,17 +86,8 @@ function VistaDonante() {
                                             filtrado(e.currentTarget.value)
                                         }
                                         className="appearance-none rounded-r rounded sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-gray-100 text-sm placeholder-gray-700 text-gray-900 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                                    />
+                                    />*/}
                                 </div>
-
-                                {/*<div className="block relative ml-20 mt-1">
-                        <Link
-                            to="/pedidos/nuevo"
-                            className="px-3 py-1 text-white font-light tracking-wider bg-green-700 hover:bg-green-600 rounded text-lg -ml-10 mr-2"
-                        >
-                            Agregar
-                        </Link>
-                    </div>*/}
                             </div>
 
                             <div>

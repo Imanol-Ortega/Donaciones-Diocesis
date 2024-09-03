@@ -4,6 +4,7 @@ import FormDonante from "./modulos/Donante/formulario/FormDonante";
 import VistaDonante from "./modulos/Donante/vista/VistaDonante";
 import CardDonante from "./modulos/Donante/card/CardDonante";
 import NotFound from "./componentes/NotFound/NotFound";
+import FormDonacion from "./modulos/Donacion/formulario/FormDonacion";
 
 function App() {
     return (
@@ -28,6 +29,7 @@ function App() {
                             path="/donacion/vista/:id"
                             element={<CardDonante />}
                         />
+                        <Route path="/donar/nuevo" element={<FormDonacion />} />
                     </Routes>
                     <Toaster />
                 </div>
