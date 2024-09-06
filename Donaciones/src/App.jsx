@@ -6,6 +6,7 @@ import CardDonante from "./modulos/Donante/card/CardDonante";
 import NotFound from "./componentes/NotFound/NotFound";
 import FormDonacion from "./modulos/Donacion/formulario/FormDonacion";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
                         <Route path="/donar/nuevo" element={<FormDonacion />} />
                     </Routes>
                     <Toaster />
+                    <Analytics />
                     <SpeedInsights />
                 </div>
             </div>
