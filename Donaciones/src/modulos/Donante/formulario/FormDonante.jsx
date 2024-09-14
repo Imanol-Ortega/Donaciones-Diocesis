@@ -33,6 +33,8 @@ function FormDonante() {
     const [positionLoad, setPositionLoad] = useState([
         -27.338697141418727, -55.86717871248513,
     ]);
+    const [errorMap, setErrorMap] = useState("");
+
     let DefaultIcon = L.icon({
         iconUrl: icon,
         shadowUrl: iconShadow,
@@ -58,6 +60,7 @@ function FormDonante() {
                 setFlyPosition(null);
             },
         });
+        setErrorMap("");
         return position === null ? null : (
             <Marker position={position} icon={DefaultIcon} />
         );
@@ -65,10 +68,16 @@ function FormDonante() {
 
     const submit = handleSubmit(async (data) => {
         try {
-            console.log(data);
-            //const rp = await guardarDonanteRequest(data);
-            reset();
-            toastSucess();
+            if (position == null) {
+                setErrorMap("Elija unas coordenadas en el Mapa");
+            } else {
+                setErrorMap("");
+                const rp = await guardarDonanteRequest(data);
+                setPosition(null);
+                setPositionLoad([-27.338697141418727, -55.86717871248513]);
+                reset();
+                toastSucess();
+            }
         } catch (error) {
             console.log(error);
         }
@@ -103,164 +112,171 @@ function FormDonante() {
             <div className="h-screen font-sans">
                 <div className="container mx-auto h-full flex flex-1 justify-center items-center">
                     <div className="w-full max-w-lg">
-                        <div className="leading-loose">
-                            <div className="max-w-full flex justify-center align-middle p-2">
-                                <img
-                                    src={Diocesis}
-                                    alt="img"
-                                    className="w-48 h-48 rounded-full object-cover"
-                                />
-                            </div>
-                            <form
-                                onSubmit={submit}
-                                className="max-w-full p-10 bg-[#263a21] rounded shadow-xl flex justify-center flex-col font-thin"
-                            >
-                                <div className="flex justify-start">
-                                    <p className="text-white text-center text-xl font-bold border-b-2 border-[#263a21] w-full py-2">
-                                        Donación
-                                    </p>
+                        <div className="leading-loose ">
+                            <div className="mt-0 sm:mt-72 sm:mb-10 2xl:mt-0 2xl:mb-0">
+                                <div className="max-w-full flex justify-center align-middle p-2 ">
+                                    <img
+                                        src={Diocesis}
+                                        alt="img"
+                                        className="w-48 h-48 rounded-full object-cover"
+                                    />
                                 </div>
-
-                                <label className="block text-base text-white mt-2 font-semibold">
-                                    Nombre
-                                </label>
-                                <input
-                                    className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100 placeholder-slate-600"
-                                    type="text"
-                                    placeholder="Escriba su nombre"
-                                    {...register("nombre", { required: true })}
-                                />
-                                {errors.nombre && (
-                                    <div className="text-red-500">
-                                        El campo esta vacío
-                                    </div>
-                                )}
-                                <label className="block text-base text-white mt-2 font-semibold">
-                                    Nro. de Teléfono
-                                </label>
-                                <input
-                                    className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100 placeholder-slate-600"
-                                    type="text"
-                                    placeholder="Escriba su nro de teléfono"
-                                    {...register("telefono", {
-                                        required: true,
-                                    })}
-                                />
-                                {errors.telefono && (
-                                    <div className="text-red-500">
-                                        El campo esta vacío
-                                    </div>
-                                )}
-                                <label className="block text-base text-white mt-2 font-semibold">
-                                    Dirección
-                                </label>
-                                <Button
-                                    variant="contained"
-                                    onClick={handleClickOpen}
-                                    className="px-4 py-1 mt-4 text-black font-thin tracking-wider bg-white hover:bg-slate-100 rounded"
+                                <form
+                                    onSubmit={submit}
+                                    className="max-w-full p-10 bg-green-900 rounded shadow-xl flex justify-center flex-col font-thin"
                                 >
-                                    Abrir Mapa
-                                </Button>
+                                    <div className="flex justify-start">
+                                        <p className="text-white text-center text-xl font-bold border-b-2 border-green-900 w-full py-2">
+                                            Donación
+                                        </p>
+                                    </div>
 
-                                <Dialog
-                                    fullWidth={true}
-                                    maxWidth={"md"}
-                                    open={open}
-                                    onClose={handleClose}
-                                >
-                                    <DialogTitle
-                                        sx={{ m: 0, p: 2 }}
-                                        id="customized-dialog-title"
-                                    >
-                                        Seleccione la ubicación de su vivienda
-                                    </DialogTitle>
-                                    <IconButton
-                                        aria-label="inert"
-                                        onClick={handleClose}
-                                        sx={(theme) => ({
-                                            position: "absolute",
-                                            right: 8,
-                                            top: 8,
-                                            color: theme.palette.grey[500],
+                                    <label className="block text-base text-white mt-2 font-semibold">
+                                        Nombre
+                                    </label>
+                                    <input
+                                        className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100 placeholder-slate-600"
+                                        type="text"
+                                        placeholder="Escriba su nombre"
+                                        {...register("nombre", {
+                                            required: true,
                                         })}
-                                    ></IconButton>
-                                    <DialogContent dividers>
-                                        <div>
-                                            <MapContainer
-                                                center={positionLoad}
-                                                zoom={15}
-                                                scrollWheelZoom={true}
-                                                style={{
-                                                    height: 600,
-                                                    maxWidth: "100vh",
-                                                }}
-                                            >
-                                                <TileLayer
-                                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                                />
-                                                {flyPosition === null ? (
-                                                    <LocationMarker />
-                                                ) : null}
-
-                                                <Markers />
-                                            </MapContainer>
+                                    />
+                                    {errors.nombre && (
+                                        <div className="text-white">
+                                            El campo esta vacío
                                         </div>
-                                    </DialogContent>
-                                    <DialogActions>
-                                        <Button autoFocus onClick={handleClose}>
-                                            Cerrar
-                                        </Button>
-                                    </DialogActions>
-                                </Dialog>
-
-                                {errors.direccion && (
-                                    <div className="text-red-500">
-                                        El campo esta vacío
-                                    </div>
-                                )}
-
-                                <label className="block text-base text-white mt-2 font-semibold">
-                                    Donación
-                                </label>
-                                <textarea
-                                    className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100 resize-none placeholder-slate-600"
-                                    placeholder="Escriba lo que va a donar"
-                                    {...register("donacion", {
-                                        required: true,
-                                    })}
-                                />
-
-                                {errors.donacion && (
-                                    <div className="text-red-500">
-                                        El campo esta vacío
-                                    </div>
-                                )}
-                                <label className="block text-base text-white mt-2 font-semibold">
-                                    Observación
-                                </label>
-                                <textarea
-                                    className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100 resize-none placeholder-slate-600"
-                                    placeholder="Escriba una observación"
-                                    {...register("observacion", {
-                                        required: true,
-                                    })}
-                                />
-
-                                {errors.observacion && (
-                                    <div className="text-red-500">
-                                        El campo esta vacío
-                                    </div>
-                                )}
-                                <div>
-                                    <button
+                                    )}
+                                    <label className="block text-base text-white mt-2 font-semibold">
+                                        Nro. de Teléfono
+                                    </label>
+                                    <input
+                                        className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100 placeholder-slate-600"
+                                        type="text"
+                                        placeholder="Escriba su nro de teléfono"
+                                        {...register("telefono", {
+                                            required: true,
+                                        })}
+                                    />
+                                    {errors.telefono && (
+                                        <div className="text-white">
+                                            El campo esta vacío
+                                        </div>
+                                    )}
+                                    <label className="block text-base text-white mt-2 font-semibold">
+                                        Dirección
+                                    </label>
+                                    <Button
+                                        variant="contained"
+                                        onClick={handleClickOpen}
                                         className="px-4 py-1 mt-4 text-black font-thin tracking-wider bg-white hover:bg-slate-100 rounded"
-                                        type="submit"
                                     >
-                                        Guardar
-                                    </button>
-                                </div>
-                            </form>
+                                        Abrir Mapa
+                                    </Button>
+
+                                    <Dialog
+                                        fullWidth={true}
+                                        open={open}
+                                        onClose={handleClose}
+                                    >
+                                        <DialogTitle
+                                            sx={{ m: 0, p: 2 }}
+                                            id="customized-dialog-title"
+                                        >
+                                            Seleccione la ubicación de su
+                                            vivienda
+                                        </DialogTitle>
+                                        <IconButton
+                                            aria-label="inert"
+                                            onClick={handleClose}
+                                            sx={(theme) => ({
+                                                position: "absolute",
+                                                right: 8,
+                                                top: 8,
+                                                color: theme.palette.grey[500],
+                                            })}
+                                        ></IconButton>
+                                        <DialogContent dividers>
+                                            <div className="flex align-middle justify-center">
+                                                <MapContainer
+                                                    center={positionLoad}
+                                                    zoom={15}
+                                                    scrollWheelZoom={true}
+                                                    style={{
+                                                        height: 400,
+                                                        maxWidth: "md",
+                                                    }}
+                                                >
+                                                    <TileLayer
+                                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                                    />
+                                                    {flyPosition === null ? (
+                                                        <LocationMarker />
+                                                    ) : null}
+
+                                                    <Markers />
+                                                </MapContainer>
+                                            </div>
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button
+                                                autoFocus
+                                                onClick={handleClose}
+                                            >
+                                                Cerrar
+                                            </Button>
+                                        </DialogActions>
+                                    </Dialog>
+
+                                    {errorMap && (
+                                        <div className="text-white">
+                                            {errorMap}
+                                        </div>
+                                    )}
+
+                                    <label className="block text-base text-white mt-2 font-semibold">
+                                        Donación
+                                    </label>
+                                    <textarea
+                                        className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100 resize-none placeholder-slate-600"
+                                        placeholder="Escriba lo que va a donar"
+                                        {...register("donacion", {
+                                            required: true,
+                                        })}
+                                    />
+
+                                    {errors.donacion && (
+                                        <div className="text-white">
+                                            El campo esta vacío
+                                        </div>
+                                    )}
+                                    <label className="block text-base text-white mt-2 font-semibold">
+                                        Observación
+                                    </label>
+                                    <textarea
+                                        className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100 resize-none placeholder-slate-600"
+                                        placeholder="Escriba una observación"
+                                        {...register("observacion", {
+                                            required: true,
+                                        })}
+                                    />
+
+                                    {errors.observacion && (
+                                        <div className="text-white">
+                                            El campo esta vacío
+                                        </div>
+                                    )}
+                                    <div>
+                                        <button
+                                            className="px-4 py-1 mt-4 text-black font-thin tracking-wider bg-white hover:bg-slate-100 rounded"
+                                            type="submit"
+                                        >
+                                            Guardar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

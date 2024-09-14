@@ -135,7 +135,7 @@ function FormDonacion() {
                         <div className="leading-loose">
                             <div className="max-w-full p-10 bg-white rounded shadow-xlfont-thin mt-5">
                                 <div className="flex justify-start">
-                                    <p className="text-black text-center text-xl font-bold border-b-2 border-blue-600 w-full py-2">
+                                    <p className="text-black text-center text-xl font-bold border-b-2 border-green-700 w-full py-2">
                                         Donar
                                     </p>
                                 </div>
@@ -187,7 +187,7 @@ function FormDonacion() {
                                         </div>
                                         <div>
                                             <button
-                                                className="px-4 py-1 mt-8 text-white font-light tracking-wider bg-blue-800 hover:bg-blue-700 rounded"
+                                                className="px-4 py-1 mt-8 text-white font-light tracking-wider bg-green-800 hover:bg-green-700 rounded"
                                                 onClick={agregar}
                                             >
                                                 Agregar
@@ -207,7 +207,7 @@ function FormDonacion() {
                                                 <div className="p-3 bg-white">
                                                     <div className="overflow-x-auto ">
                                                         <table className="table-auto w-full">
-                                                            <thead className="text-xs font-semibold uppercase text-white bg-blue-500 rounded">
+                                                            <thead className="text-xs font-semibold uppercase text-white bg-gray-500 rounded">
                                                                 <tr>
                                                                     <th className="p-2 whitespace-nowrap">
                                                                         <div className="font-semibold text-left">
@@ -293,7 +293,7 @@ function FormDonacion() {
 
                                 <div>
                                     <button
-                                        className="px-4 py-1 mt-4 text-white font-light tracking-wider bg-blue-800 hover:bg-blue-700 rounded"
+                                        className="px-4 py-1 mt-4 text-white font-light tracking-wider bg-green-800 hover:bg-green-700 rounded"
                                         type="submit"
                                         onClick={submit}
                                     >
@@ -301,7 +301,7 @@ function FormDonacion() {
                                     </button>
                                     <Link
                                         to="/donacion/vista"
-                                        className=" ml-2 px-4 py-2.5 text-white font-light tracking-wider bg-blue-800 hover:bg-blue-700 rounded"
+                                        className=" ml-2 px-4 py-2.5 text-white font-light tracking-wider bg-green-800 hover:bg-green-700 rounded"
                                     >
                                         Cancelar
                                     </Link>

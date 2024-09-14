@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { obtenerDonantesRequest } from "../api/donante.api";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
+import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
+import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 
 function VistaDonante() {
     const [donacion, setDonacion] = useState([]);
@@ -11,7 +13,6 @@ function VistaDonante() {
     const [currentItems, setCurrentItems] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
-    const [detalle, setDetalle] = useState([]);
     const itemsPerPage = 10;
 
     const cargarDonacion = async () => {
@@ -24,21 +25,21 @@ function VistaDonante() {
         }
     };
     const filtrado = (filter) => {
-        if (filter) {
-            setFilterPedido(
-                filterPedido.filter((dona) =>
-                    dona.donantenombre
-                        .toLowerCase()
-                        .includes(filter.toLowerCase())
-                )
-            );
-        } else {
-            setFilterPedido(donacion);
-        }
+        const valorFiltro = filter.target.value.toLowerCase();
+        const nuevosDonantes = donacion.filter((donante) => {
+            return Object.values(donante).some((valor) => {
+                return String(valor).toLowerCase().includes(valorFiltro);
+            });
+        });
+        setFilterPedido(nuevosDonantes);
     };
     const handlePageClick = (e) => {
         const newOffset = (e.selected * itemsPerPage) % filterPedido.length;
         setItemOffset(newOffset);
+    };
+
+    const eliminar = (id) => {
+        console.log(id);
     };
 
     useEffect(() => {
@@ -59,19 +60,19 @@ function VistaDonante() {
                             <div className="w-full max-w-5xl justify-end flex ml-28">
                                 <Link
                                     to="/donar/nuevo"
-                                    className=" ml-2 px-4 py-2.5 text-white font-light tracking-wider bg-blue-800 hover:bg-blue-700 rounded"
+                                    className=" ml-2 px-4 py-2.5 text-white font-light tracking-wider bg-green-900 hover:bg-green-800 rounded"
                                 >
                                     Agregar Donacion
                                 </Link>
                             </div>
-                            <div className="my-2 flex justify-center mr-4 ml-4 p-1 bg-blue-500 rounded sm:flex-row flex-col">
+                            <div className="flex w-full justify-center font-sans font-semibold text-xl py-2">
+                                <p className="text-black font-bold">
+                                    DONACIONES
+                                </p>
+                            </div>
+                            <div className="my-2 flex justify-start mr-4 ml-4 p-1  rounded sm:flex-row flex-col">
                                 <div className="block relative">
-                                    <div className="flex w-full justify-center font-sans font-semibold text-xl py-2">
-                                        <p className="text-white font-bold">
-                                            DONACIONES
-                                        </p>
-                                    </div>
-                                    {/*<span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+                                    <span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
                                         <svg
                                             viewBox="0 0 24 24"
                                             className="h-4 w-4 fill-current text-gray-500"
@@ -82,11 +83,9 @@ function VistaDonante() {
 
                                     <input
                                         placeholder="Filtrar"
-                                        onChange={(e) =>
-                                            filtrado(e.currentTarget.value)
-                                        }
+                                        onChange={(e) => filtrado(e)}
                                         className="appearance-none rounded-r rounded sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-gray-100 text-sm placeholder-gray-700 text-gray-900 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                                    />*/}
+                                    />
                                 </div>
                             </div>
 
@@ -97,7 +96,7 @@ function VistaDonante() {
                                             <div className="p-3 bg-white">
                                                 <div className="overflow-x-auto ">
                                                     <table className="table-auto w-full">
-                                                        <thead className="text-xs font-semibold uppercase text-white bg-blue-500">
+                                                        <thead className="text-xs font-semibold uppercase text-white bg-gray-800">
                                                             <tr>
                                                                 <th className="p-2 whitespace-nowrap ">
                                                                     <div className="font-semibold text-left">
@@ -116,7 +115,7 @@ function VistaDonante() {
                                                                 </th>
                                                                 <th className="p-2 whitespace-nowrap">
                                                                     <div className="font-semibold text-left">
-                                                                        DIRECCIÓN
+                                                                        DONACIÓN
                                                                     </div>
                                                                 </th>
 
@@ -168,25 +167,40 @@ function VistaDonante() {
                                                                         <td className="p-2 whitespace-nowrap max-w-40 text-wrap">
                                                                             <div className="text-left">
                                                                                 {
-                                                                                    tipo.donantedireccion
+                                                                                    tipo.donantedonacion
                                                                                 }
                                                                             </div>
                                                                         </td>
 
                                                                         <td className="p-2 whitespace-nowrap w-28 text-wrap">
-                                                                            <div className="bg-red-600 text-white p-1 rounded text-center w-24">
+                                                                            <div className=" text-black p-1 rounded text-left w-24">
                                                                                 Pendiente
                                                                             </div>
                                                                         </td>
 
                                                                         <td className="p-2 whitespace-nowrap w-10">
-                                                                            <div className="text-right -ml-10">
+                                                                            <div className="text-right -ml-10 flex justify-end gap-2">
                                                                                 <Link
-                                                                                    className="px-3 py-1 text-white font-light tracking-wider bg-cyan-500 hover:bg-cyan-600 rounded text-xs ml-1"
+                                                                                    className=" text-green-700 font-light tracking-wide rounded text-xs"
                                                                                     to={`/donacion/vista/${tipo.donanteid}`}
                                                                                 >
-                                                                                    Ver
+                                                                                    <VisibilityRoundedIcon />
                                                                                 </Link>
+                                                                                <div className="text-red-500">
+                                                                                    <button
+                                                                                        onClick={() => {
+                                                                                            eliminar(
+                                                                                                tipo.donanteid
+                                                                                            );
+                                                                                        }}
+                                                                                        type="button"
+                                                                                    >
+                                                                                        {
+                                                                                            ""
+                                                                                        }
+                                                                                        <DeleteOutlineRoundedIcon />
+                                                                                    </button>
+                                                                                </div>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -212,10 +226,10 @@ function VistaDonante() {
                                                                 null
                                                             }
                                                             containerClassName="list-none flex justify-center align-middle mb-5 text-sm gap-1"
-                                                            pageLinkClassName="px-6 py-15 cursor-pointer rounded font-normal hover:bg-blue-500 hover:text-white"
-                                                            previousClassName="px-6 py-15 cursor-pointer rounded font-normal hover:bg-blue-500 hover:text-white"
-                                                            nextLinkClassName="px-6 py-15 cursor-pointer rounded font-normal hover:bg-blue-500 hover:text-white"
-                                                            activeClassName="active: bg-blue-700 text-white"
+                                                            pageLinkClassName="px-6 py-15 cursor-pointer rounded font-normal"
+                                                            previousClassName="px-6 py-15 cursor-pointer rounded font-normal border-2"
+                                                            nextLinkClassName="px-6 py-15 cursor-pointer rounded font-normal border-2"
+                                                            activeClassName="active: bg-gray-300 text-black rounded"
                                                         />
                                                     </div>
                                                     <div className="w-full flex items-center justify-center">
