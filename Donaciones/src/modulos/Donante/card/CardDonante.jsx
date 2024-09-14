@@ -124,7 +124,7 @@ function CardDonante() {
                                 </p>
                             </div>
 
-                            <div className="flex flex-col max-w-5xl bg-white rounded shadow-xl align-middle justify-center py-5 mt-4">
+                            <div className="flex flex-col max-w-5xl bg-white rounded shadow-xl align-middle justify-center py-5 mt-4 ">
                                 <div className="max-w-xl py-2 mx-4 ">
                                     <h3 className=" shadow-md w-full font-semibold p-3">
                                         Nombre: {donacion.donantenombre}
