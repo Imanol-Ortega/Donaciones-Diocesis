@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import { guardarDonanteRequest } from "../api/donante.api";
 import Diocesis from "../../../static/diocesis.png";
-
+import L from "leaflet";
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import { useState } from "react";
 import {
     Dialog,
@@ -13,16 +14,8 @@ import {
     DialogContent,
     DialogActions,
     IconButton,
-    Typography,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import {
-    MapContainer,
-    Marker,
-    Popup,
-    TileLayer,
-    useMapEvents,
-} from "react-leaflet";
+import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 function FormDonante() {
@@ -33,7 +26,6 @@ function FormDonante() {
         formState: { errors },
         setValue,
     } = useForm();
-    const navigate = useNavigate();
 
     const [open, setOpen] = useState(false);
     const [position, setPosition] = useState(null);
@@ -41,6 +33,10 @@ function FormDonante() {
     const [positionLoad, setPositionLoad] = useState([
         -27.338697141418727, -55.86717871248513,
     ]);
+    let DefaultIcon = L.icon({
+        iconUrl: icon,
+        shadowUrl: iconShadow,
+    });
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -62,7 +58,9 @@ function FormDonante() {
                 setFlyPosition(null);
             },
         });
-        return position === null ? null : <Marker position={position} />;
+        return position === null ? null : (
+            <Marker position={position} icon={DefaultIcon} />
+        );
     };
 
     const submit = handleSubmit(async (data) => {
