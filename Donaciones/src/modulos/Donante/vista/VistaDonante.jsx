@@ -57,14 +57,6 @@ function VistaDonante() {
                 <div className="container mx-auto h-full flex flex-1 justify-center items-center">
                     <div className="w-full max-w-6xl h-[100vh]">
                         <div className="py-8">
-                            <div className="w-full max-w-5xl justify-end flex ml-28">
-                                <Link
-                                    to="/donar/nuevo"
-                                    className=" ml-2 px-4 py-2.5 text-white font-light tracking-wider bg-green-900 hover:bg-green-800 rounded"
-                                >
-                                    Agregar Donacion
-                                </Link>
-                            </div>
                             <div className="flex w-full justify-center font-sans font-semibold text-xl py-2">
                                 <p className="text-black font-bold">
                                     DONACIONES

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useForm } from "react-hook-form";
+
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { guardarDonacionRequest } from "../api/donacion.api";
@@ -27,12 +27,16 @@ function FormDonacion() {
                 institucionid: institucionSelect,
                 inventario: inventarioRender,
             });
-            const rp = await guardarDonacionRequest({
-                institucionid: institucionSelect,
-                inventario: inventarioRender,
-            });
-            navigate("/donacion/vista");
-            toastSucess();
+            if (institucionSelect == 0 || inventarioRender == 0) {
+                toastError();
+            } else {
+                const rp = await guardarDonacionRequest({
+                    institucionid: institucionSelect,
+                    inventario: inventarioRender,
+                });
+                navigate("/donacion/vista");
+                toastSucess();
+            }
         } catch (error) {
             console.log(error);
         }
@@ -41,6 +45,16 @@ function FormDonacion() {
         toast.success("Enviado Correctamente", {
             position: "top-right",
             autoClose: 5000,
+            style: {
+                background: "#212121",
+                color: "white",
+            },
+        });
+    };
+    const toastError = () => {
+        toast.error("Complete todos los campos", {
+            position: "top-right",
+            autoClose: 3000,
             style: {
                 background: "#212121",
                 color: "white",
@@ -122,6 +136,25 @@ function FormDonacion() {
         );
     };
 
+    const colourStyles = {
+        control: (styles) => ({
+            ...styles,
+            backgroundColor: "white",
+            borderColor: "#ccc",
+        }),
+        option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+            return {
+                ...styles,
+                backgroundColor: isDisabled ? "#ccc" : "#ccc",
+                color: "#000",
+                ":hover": {
+                    backgroundColor: "gray",
+                },
+                cursor: isDisabled ? "not-allowed" : "default",
+            };
+        },
+    };
+
     useEffect(() => {
         obtenerInventarios();
         obtenerInstituciones();
@@ -133,7 +166,7 @@ function FormDonacion() {
                 <div className="container mx-auto h-full flex flex-1 justify-center items-center">
                     <div className="w-full max-w-2xl">
                         <div className="leading-loose">
-                            <div className="max-w-full p-10 bg-white rounded shadow-xlfont-thin mt-5">
+                            <div className="max-w-full p-10 bg-white rounded shadow-xl font-thin mt-5">
                                 <div className="flex justify-start">
                                     <p className="text-black text-center text-xl font-bold border-b-2 border-green-700 w-full py-2">
                                         Donar
@@ -149,6 +182,7 @@ function FormDonacion() {
                                         value: inv.institucionnombre,
                                     }))}
                                     onChange={handdleSelectInstitucion}
+                                    styles={colourStyles}
                                     required
                                 />
                                 <div className="flex flex-wrap w-full grid-cols-2 gap-4">
@@ -163,6 +197,7 @@ function FormDonacion() {
                                             }))}
                                             onChange={handdleSelectInventario}
                                             key={`my key ${reRender}`}
+                                            styles={colourStyles}
                                             required
                                         />
                                     </div>
@@ -187,7 +222,7 @@ function FormDonacion() {
                                         </div>
                                         <div>
                                             <button
-                                                className="px-4 py-1 mt-8 text-white font-light tracking-wider bg-green-800 hover:bg-green-700 rounded"
+                                                className="px-4 py-1 mt-8 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
                                                 onClick={agregar}
                                             >
                                                 Agregar
@@ -293,7 +328,7 @@ function FormDonacion() {
 
                                 <div>
                                     <button
-                                        className="px-4 py-1 mt-4 text-white font-light tracking-wider bg-green-800 hover:bg-green-700 rounded"
+                                        className="px-4 py-1 mt-4 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
                                         type="submit"
                                         onClick={submit}
                                     >
@@ -301,7 +336,7 @@ function FormDonacion() {
                                     </button>
                                     <Link
                                         to="/donacion/vista"
-                                        className=" ml-2 px-4 py-2.5 text-white font-light tracking-wider bg-green-800 hover:bg-green-700 rounded"
+                                        className=" ml-2 px-4 py-2.5 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
                                     >
                                         Cancelar
                                     </Link>

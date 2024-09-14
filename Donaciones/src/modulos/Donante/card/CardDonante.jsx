@@ -5,6 +5,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { obtenerUnaDonante } from "../api/donante.api";
 import { toast } from "react-hot-toast";
 import { guardarInventarioRequest } from "../../Inventario/api/inventario.api";
+import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
 function CardDonante() {
     const params = useParams();
@@ -15,28 +20,29 @@ function CardDonante() {
         descripcion: "",
         donanteid: 0,
     });
+    const [position, setPosition] = useState(null);
     const [inventario, setInventario] = useState([]);
 
     const [donacion, setDonacion] = useState([]);
     const [error, setError] = useState("");
 
+    let DefaultIcon = L.icon({
+        iconUrl: icon,
+        shadowUrl: iconShadow,
+    });
+
     const cargarDonacion = async () => {
         try {
             const rp = await obtenerUnaDonante(params.id);
+            console.log(rp.data[0]);
+            setPosition([
+                parseFloat(rp.data[0].donantelatitud),
+                parseFloat(rp.data[0].donantelongitud),
+            ]);
             setDonacion(rp.data[0]);
         } catch (error) {
             console.log(error);
         }
-    };
-    const toastSucess = () => {
-        toast.success("Enviado Correctamente", {
-            position: "top-right",
-            autoClose: 5000,
-            style: {
-                background: "#212121",
-                color: "white",
-            },
-        });
     };
 
     const agregar = () => {
@@ -70,12 +76,36 @@ function CardDonante() {
 
     const hanndleSubmit = async () => {
         try {
-            const rp = await guardarInventarioRequest(inventario);
-            toastSucess();
-            navigate("/donacion/vista");
+            if (inventario == 0) {
+                toastError();
+            } else {
+                const rp = await guardarInventarioRequest(inventario);
+                toastSucess();
+                navigate("/donacion/vista");
+            }
         } catch (error) {
             console.log(error);
         }
+    };
+    const toastSucess = () => {
+        toast.success("Enviado Correctamente", {
+            position: "top-right",
+            autoClose: 5000,
+            style: {
+                background: "#212121",
+                color: "white",
+            },
+        });
+    };
+    const toastError = () => {
+        toast.error("Cargue al menos un dato", {
+            position: "top-right",
+            autoClose: 3000,
+            style: {
+                background: "#212121",
+                color: "white",
+            },
+        });
     };
 
     useEffect(() => {
@@ -89,55 +119,67 @@ function CardDonante() {
                     <div className="max-w-6xl h-[100vh]">
                         <div className="py-8">
                             <div className="flex w-full justify-center font-sans font-semibold text-xl mb-5">
-                                <p className="text-white font-bold">
+                                <p className="text-black font-bold">
                                     AGREGAR DONACION
                                 </p>
                             </div>
-                            <Link
-                                className="px-6 py-1 mt-4 text-white font-light tracking-wider bg-blue-600 hover:bg-blue-700 rounded "
-                                to="/donacion/vista"
-                            >
-                                Volver
-                            </Link>
 
-                            <div className="flex flex-row  max-w-5xl bg-white rounded shadow-xl align-middle justify-between py-5 mt-4">
+                            <div className="flex flex-col max-w-5xl bg-white rounded shadow-xl align-middle justify-center py-5 mt-4">
                                 <div className="max-w-xl py-2 mx-4 ">
-                                    <h3 className="border-b-2 border-blue-400 w-full font-semibold">
-                                        Nombre:{" "}
+                                    <h3 className=" shadow-md w-full font-semibold p-3">
+                                        Nombre: {donacion.donantenombre}
                                     </h3>
-                                    <p>{donacion.donantenombre}</p>
                                 </div>
                                 <div className="max-w-xl py-2 mx-4 ">
-                                    <h3 className="border-b-2 border-blue-400 w-full font-semibold">
-                                        Teléfono:
+                                    <h3 className=" shadow-md w-full font-semibold p-3">
+                                        Teléfono: {donacion.donantetelefono}
                                     </h3>
-                                    <p> {donacion.donantetelefono}</p>
                                 </div>
                                 <div className="max-w-xl py-2 mx-4 ">
-                                    <h3 className="border-b-2 border-blue-400 w-full font-semibold">
+                                    <h3 className="shadow-md w-full font-semibold p-3">
                                         Dirección:
+                                        <div>
+                                            {position && (
+                                                <MapContainer
+                                                    center={position}
+                                                    zoom={15}
+                                                    scrollWheelZoom={true}
+                                                    style={{
+                                                        height: 400,
+                                                        maxWidth: "md",
+                                                    }}
+                                                >
+                                                    <TileLayer
+                                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                                    />
+                                                    <Marker
+                                                        position={position}
+                                                        icon={DefaultIcon}
+                                                    />
+                                                </MapContainer>
+                                            )}
+                                        </div>
                                     </h3>
-                                    <p>{donacion.donantedireccion}</p>
                                 </div>
                                 <div className="max-w-xl py-2 mx-4 ">
-                                    <h3 className="border-b-2 border-blue-400 w-full font-semibold">
-                                        Donación:
+                                    <h3 className=" shadow-md w-full font-semibold p-3">
+                                        Donación: {donacion.donantedonacion}
                                     </h3>
-                                    <p>{donacion.donantedonacion}</p>
                                 </div>
                                 <div className="max-w-xl py-2 mx-4 ">
-                                    <h3 className="border-b-2 border-blue-400 w-full font-semibold">
-                                        Observación:
+                                    <h3 className="shadow-md w-full font-semibold p-3">
+                                        Observación:{" "}
+                                        {donacion.donanteobservacion}
                                     </h3>
-                                    <p>{donacion.donanteobservacion}</p>
                                 </div>
                             </div>
-                            <div className="w-full max-w-5xl mt-3">
+                            <div className="w-full max-w-5xl mt-3 ">
                                 <div className="leading-loose">
-                                    <div className="max-w-full p-10 bg-white rounded shadow-xlfont-thin">
+                                    <div className="max-w-full p-10 bg-white shadow-xl rounded font-thin">
                                         <div>
                                             <button
-                                                className="px-4 py-1 mt-4 text-white font-light tracking-wider bg-blue-800 hover:bg-blue-700 rounded"
+                                                className="px-4 py-1 mt-4 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
                                                 onClick={agregar}
                                             >
                                                 Agregar
@@ -220,11 +262,11 @@ function CardDonante() {
                                 <div className=" max-w-6xl">
                                     <section className="antialiased  text-black font-semibold mt-3 bg-cover rounded ">
                                         <div className="flex flex-col justify-center ">
-                                            <div className="w-full mx-auto  shadow-lg rounded-sm border border-gray-200">
+                                            <div className="w-full mx-auto  shadow-xl rounded-sm border border-gray-200">
                                                 <div className="p-3 bg-white">
                                                     <div className="overflow-x-auto ">
                                                         <table className="table-auto w-full">
-                                                            <thead className="text-xs font-semibold uppercase text-white bg-blue-500 rounded">
+                                                            <thead className="text-xs font-semibold uppercase text-white bg-gray-800 rounded">
                                                                 <tr>
                                                                     <th className="p-2 whitespace-nowrap">
                                                                         <div className="font-semibold text-left">
@@ -287,14 +329,20 @@ function CardDonante() {
                                         </div>
                                     </section>
                                 </div>
-                                <div>
+                                <div className="justify-between flex w-44 ">
                                     <button
-                                        className="px-4 py-1 mt-4 text-white font-light tracking-wider bg-blue-600 hover:bg-blue-700 rounded"
+                                        className="px-4 py-1 mt-4 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2 "
                                         type="submit"
                                         onClick={hanndleSubmit}
                                     >
                                         Enviar
                                     </button>
+                                    <Link
+                                        className="px-4 py-1.5 mt-4 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
+                                        to="/donacion/vista"
+                                    >
+                                        Volver
+                                    </Link>
                                 </div>
                             </div>
                         </div>
