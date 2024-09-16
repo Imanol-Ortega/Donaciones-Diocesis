@@ -83,7 +83,7 @@ function VistaInventario() {
                                     INVENTARIO
                                 </p>
                             </div>
-                            <div className="my-2 flex justify-start mr-4 ml-4 p-1 rounded sm:flex-row flex-col">
+                            <div className="my-2 flex justify-start ml-3 p-1 rounded sm:flex-row flex-col">
                                 <div className="block relative">
                                     <span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
                                         <svg

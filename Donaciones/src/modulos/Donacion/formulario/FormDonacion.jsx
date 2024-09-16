@@ -108,6 +108,8 @@ function FormDonacion() {
             setError("Ya agrego el item");
         } else if (inventarioSelect == 0 || institucionSelect == 0) {
             setError("Seleccione una opción");
+        } else if (cantidad == 0) {
+            setError("Indique la cantidad");
         } else {
             setInventarioRender([
                 ...inventarioRender,
@@ -128,6 +130,7 @@ function FormDonacion() {
             setCantidad(0);
             setInventarioSelect([]);
             setError("");
+            setMaxCantidad(0);
         }
     };
     const borrar = (id) => {
@@ -163,10 +166,10 @@ function FormDonacion() {
     return (
         <div>
             <div className="h-full font-sans">
-                <div className="container mx-auto h-full flex flex-1 justify-center items-center">
+                <div className="container mx-auto h-full flex flex-1 justify-center align-middle items-center">
                     <div className="w-full max-w-2xl">
-                        <div className="leading-loose">
-                            <div className="max-w-full p-10 bg-white rounded shadow-xl font-thin mt-5">
+                        <div className="leading-loose m-auto">
+                            <div className="max-w-full p-10 bg-white rounded shadow-xl font-thin mt-20">
                                 <div className="flex justify-start">
                                     <p className="text-black text-center text-xl font-bold border-b-2 border-green-700 w-full py-2">
                                         Donar

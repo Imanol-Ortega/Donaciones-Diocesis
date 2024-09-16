@@ -83,16 +83,16 @@ function VistaDonante() {
                                     DONACIONES
                                 </p>
                             </div>
-                            <div className="flex w-full justify-start font-sans font-semibold text-xl py-2 ml-4 mt-2">
+                            <div className="flex w-full justify-start font-sans font-semibold text-sm py-2 ml-4 mt-2">
                                 <Link
                                     to="/donacion/agregar"
-                                    className="px-2 py-2 text-black font-semibold bg-gray-100 hover:bg-gray-300 rounded border-2"
+                                    className="px-2 py-2 text-white font-semibold bg-green-800 hover:bg-green-700 rounded"
                                 >
                                     <AddIcon /> Nuevo
                                 </Link>
                             </div>
 
-                            <div className="my-2 flex justify-start mr-4 ml-4 p-1 rounded sm:flex-row flex-col">
+                            <div className="my-2 flex justify-start ml-3 p-1 rounded sm:flex-row flex-col">
                                 <div className="block relative">
                                     <span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
                                         <svg

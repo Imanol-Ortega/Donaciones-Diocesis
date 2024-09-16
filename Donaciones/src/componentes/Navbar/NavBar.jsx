@@ -35,10 +35,10 @@ function NavBar() {
                                     Instituciones
                                 </Link>
                                 <Link
-                                    to="/institucion/vista"
+                                    to="/donar/nuevo"
                                     className="text-white hover:text-gray-300 hover:underline hover:decoration-green-600 hover:decoration-solid underline-offset-8 tracking-wider"
                                 >
-                                    Donaciones Enviadas
+                                    Donar
                                 </Link>
                             </ul>
                         </div>
