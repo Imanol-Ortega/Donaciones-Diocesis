@@ -41,7 +41,7 @@ function FormInstitucion() {
                 <div className="container mx-auto h-full flex flex-1 justify-center items-center">
                     <div className="w-full max-w-lg">
                         <div className="leading-loose ">
-                            <div className="mt-0 sm:mt-72 sm:mb-10 2xl:mt-0 2xl:mb-0">
+                            <div className="mt-0 sm:mt-32 sm:mb-10 2xl:mt-0 2xl:mb-0">
                                 <form
                                     onSubmit={submit}
                                     className="max-w-full p-10 bg-green-900 rounded shadow-xl flex justify-center flex-col font-thin"
