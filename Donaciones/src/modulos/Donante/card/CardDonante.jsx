@@ -49,8 +49,7 @@ function CardDonante() {
         if (
             inventarioTemp.nombre == "" ||
             inventarioTemp.cantidad == 0 ||
-            inventarioTemp.descripcion == "" ||
-            inventarioTemp.donanteid == 0
+            inventarioTemp.descripcion == ""
         ) {
             setError("Complete los campos");
         } else {
@@ -70,6 +69,7 @@ function CardDonante() {
                 donanteid: 0,
             });
             console.log(inventario);
+            setError("");
         }
     };
 
