@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { guardarInstitucionRequest } from "../api/institucion.api";
 
 function FormInstitucion() {
@@ -18,6 +18,7 @@ function FormInstitucion() {
         try {
             const rp = await guardarInstitucionRequest(data);
             reset();
+            redirect("/institucion/vista");
             toastSucess();
         } catch (error) {
             console.log(error);
