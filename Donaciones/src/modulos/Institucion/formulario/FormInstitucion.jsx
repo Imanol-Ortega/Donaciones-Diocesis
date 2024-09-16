@@ -111,7 +111,7 @@ function FormInstitucion() {
                                             "/donacion/nuevo" && (
                                             <Link
                                                 className=" ml-2 px-4 py-2.5 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
-                                                to="/donacion/vista"
+                                                to="/institucion/vista"
                                             >
                                                 Volver
                                             </Link>
