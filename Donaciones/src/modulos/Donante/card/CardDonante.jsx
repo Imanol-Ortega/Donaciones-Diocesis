@@ -106,6 +106,9 @@ function CardDonante() {
             },
         });
     };
+    const borrar = (nombre) => {
+        setInventario(inventario.filter((fill) => fill.nombre != nombre));
+    };
 
     useEffect(() => {
         cargarDonacion();
@@ -179,22 +182,15 @@ function CardDonante() {
                                 <div className="leading-loose">
                                     <div className="max-w-full p-10 bg-white shadow-xl rounded font-thin">
                                         <div>
-                                            <button
-                                                className="px-4 py-1 mt-4 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
-                                                onClick={agregar}
-                                            >
-                                                Agregar
-                                            </button>
-
                                             <div className="flex flex-wrap w-full grid-cols-2 gap-4">
                                                 <div className="max-w-2xl">
                                                     <label className="block text-base text-black mt-2 font-semibold">
-                                                        Nombre
+                                                        Nombre del Articulo
                                                     </label>
                                                     <input
                                                         className="w-96 px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100"
                                                         type="text"
-                                                        placeholder="Escriba el nombre"
+                                                        placeholder="Escriba el nombre del articulo"
                                                         value={
                                                             inventarioTemp.nombre ||
                                                             ""
@@ -211,7 +207,7 @@ function CardDonante() {
                                                 </div>
                                                 <div className="max-w-2xl">
                                                     <label className="block text-base text-black mt-2 font-semibold">
-                                                        Cantidad
+                                                        Cantidad Recibida
                                                     </label>
                                                     <input
                                                         className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100"
@@ -233,8 +229,9 @@ function CardDonante() {
                                                     />
                                                 </div>
                                             </div>
+
                                             <label className="block text-base text-black mt-2 font-semibold">
-                                                Descripción
+                                                Descripción del Articulo
                                             </label>
                                             <textarea
                                                 className="w-full px-5 py-1 text-gray-900 bg-gray-200 rounded focus:outline-none focus:bg-gray-100 resize-none"
@@ -258,6 +255,12 @@ function CardDonante() {
                                                 {error}
                                             </div>
                                         )}
+                                        <button
+                                            className="px-4 py-1 mt-4 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
+                                            onClick={agregar}
+                                        >
+                                            Agregar articulo
+                                        </button>
                                     </div>
                                 </div>
                                 <div className=" max-w-6xl">
@@ -283,6 +286,9 @@ function CardDonante() {
                                                                         <div className="font-semibold text-left">
                                                                             DESCRIPCION
                                                                         </div>
+                                                                    </th>
+                                                                    <th className="p-2 whitespace-nowrap">
+                                                                        <div className="font-semibold text-left"></div>
                                                                     </th>
                                                                 </tr>
                                                             </thead>
@@ -319,6 +325,33 @@ function CardDonante() {
                                                                                     }
                                                                                 </div>
                                                                             </td>
+                                                                            <td className="p-2 whitespace-nowrap w-10 text-wrap">
+                                                                                <button
+                                                                                    type="button"
+                                                                                    className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                                                                                    onClick={() =>
+                                                                                        borrar(
+                                                                                            invent.nombre
+                                                                                        )
+                                                                                    }
+                                                                                >
+                                                                                    <svg
+                                                                                        className="h-6 w-6"
+                                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                                        fill="none"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        stroke="currentColor"
+                                                                                        aria-hidden="true"
+                                                                                    >
+                                                                                        <path
+                                                                                            strokeLinecap="round"
+                                                                                            strokeLinejoin="round"
+                                                                                            strokeWidth="2"
+                                                                                            d="M6 18L18 6M6 6l12 12"
+                                                                                        />
+                                                                                    </svg>
+                                                                                </button>
+                                                                            </td>
                                                                         </tr>
                                                                     )
                                                                 )}
@@ -339,7 +372,7 @@ function CardDonante() {
                                         Enviar
                                     </button>
                                     <Link
-                                        className="px-4 py-1.5 mt-4 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
+                                        className="px-4 py-1.5 mt-4 ml-4 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
                                         to="/donacion/vista"
                                     >
                                         Volver
