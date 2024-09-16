@@ -6,6 +6,7 @@ import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import { toast } from "react-hot-toast";
 import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
+import { obtenerDonacionRequest } from "../api/donacion.api";
 
 function VistaDonacion() {
     const [donacion, setDonacion] = useState([]);
@@ -18,9 +19,9 @@ function VistaDonacion() {
 
     const cargarDonacion = async () => {
         try {
-            /*const rp = await cargarDonacionRequest();
+            const rp = await obtenerDonacionRequest();
             setDonacion(rp.data);
-            setFilterDonacion(rp.data);*/
+            setFilterDonacion(rp.data);
         } catch (error) {
             console.log(error);
         }
@@ -76,13 +77,11 @@ function VistaDonacion() {
                     <div className="w-full max-w-6xl h-[100vh]">
                         <div className="py-8">
                             <div className="flex w-full justify-start font-sans font-semibold text-xl py-2 ml-4 mt-16">
-                                <p className="text-black font-bold">
-                                    DONACIONES
-                                </p>
+                                <p className="text-black font-bold">DONADO</p>
                             </div>
                             <div className="flex w-full justify-start font-sans font-semibold text-sm py-2 ml-4 mt-2">
                                 <Link
-                                    to="/donacion/agregar"
+                                    to="/donar/nuevo"
                                     className="px-2 py-2 text-white font-semibold bg-green-800 hover:bg-green-700 rounded"
                                 >
                                     <AddIcon /> Nuevo
@@ -124,30 +123,31 @@ function VistaDonacion() {
                                                                 </th>
                                                                 <th className="p-2 whitespace-nowrap">
                                                                     <div className="font-semibold text-left">
-                                                                        NOMBRE
+                                                                        INSTITUCION
                                                                     </div>
                                                                 </th>
                                                                 <th className="p-2 whitespace-nowrap">
                                                                     <div className="font-semibold text-left">
-                                                                        TELEFONO
+                                                                        DIRECCIÓN
                                                                     </div>
                                                                 </th>
                                                                 <th className="p-2 whitespace-nowrap">
                                                                     <div className="font-semibold text-left">
-                                                                        DONACIÓN
+                                                                        DONADO
                                                                     </div>
                                                                 </th>
 
                                                                 <th className="p-2 whitespace-nowrap">
                                                                     <div className="font-semibold text-left">
-                                                                        ESTADO
+                                                                        TOTAL
+                                                                        DONADO
                                                                     </div>
                                                                 </th>
-                                                                <th className="p-2 whitespace-nowrap w-20">
+                                                                {/*<th className="p-2 whitespace-nowrap w-20">
                                                                     <div className="font-semibold text-left">
                                                                         ACCIONES
                                                                     </div>
-                                                                </th>
+                                                                </th>*/}
                                                             </tr>
                                                         </thead>
 
@@ -159,45 +159,46 @@ function VistaDonacion() {
                                                                 ) => (
                                                                     <tr
                                                                         key={
-                                                                            tipo.donanteid
+                                                                            tipo.institucionid
                                                                         }
                                                                     >
                                                                         <td className="p-2 whitespace-nowrap w-10 ">
                                                                             <div className="text-left">
                                                                                 {
-                                                                                    tipo.donanteid
-                                                                                }
-                                                                            </div>
-                                                                        </td>
-                                                                        <td className="p-2 whitespace-nowrap max-w-32 text-wrap">
-                                                                            <div className="text-left">
-                                                                                {
-                                                                                    tipo.donantenombre
-                                                                                }
-                                                                            </div>
-                                                                        </td>
-                                                                        <td className="p-2 whitespace-nowrap w-32 text-wrap">
-                                                                            <div className="text-left">
-                                                                                {
-                                                                                    tipo.donantetelefono
+                                                                                    tipo.institucionid
                                                                                 }
                                                                             </div>
                                                                         </td>
                                                                         <td className="p-2 whitespace-nowrap max-w-40 text-wrap">
                                                                             <div className="text-left">
                                                                                 {
-                                                                                    tipo.donantedonacion
+                                                                                    tipo.institucionnombre
+                                                                                }
+                                                                            </div>
+                                                                        </td>
+                                                                        <td className="p-2 whitespace-nowrap max-w-40 text-wrap">
+                                                                            <div className="text-left">
+                                                                                {
+                                                                                    tipo.instituciondireccion
+                                                                                }
+                                                                            </div>
+                                                                        </td>
+                                                                        <td className="p-2 whitespace-nowrap max-w-40 text-wrap">
+                                                                            <div className="text-left">
+                                                                                {
+                                                                                    tipo.inventario_detallado
+                                                                                }
+                                                                            </div>
+                                                                        </td>
+                                                                        <td className="p-2 whitespace-nowrap max-w-3 text-wrap">
+                                                                            <div className="text-left">
+                                                                                {
+                                                                                    tipo.total_donado
                                                                                 }
                                                                             </div>
                                                                         </td>
 
-                                                                        <td className="p-2 whitespace-nowrap w-28 text-wrap">
-                                                                            <div className=" text-black p-1 rounded text-left w-24">
-                                                                                Pendiente
-                                                                            </div>
-                                                                        </td>
-
-                                                                        <td className="p-2 whitespace-nowrap w-20">
+                                                                        {/*<td className="p-2 whitespace-nowrap w-20">
                                                                             <div className="text-right -ml-10 flex justify-end gap-2">
                                                                                 <Link
                                                                                     className=" text-green-700 font-light tracking-wide rounded text-xs"
@@ -221,7 +222,7 @@ function VistaDonacion() {
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
-                                                                        </td>
+                                                                        </td>*/}
                                                                     </tr>
                                                                 )
                                                             )}

@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import VistaInventario from "./modulos/Inventario/vista/VistaInventario";
 import FormInstitucion from "./modulos/Institucion/formulario/FormInstitucion";
 import VistaInstitucion from "./modulos/Institucion/vista/VistaInstitucion";
+import VistaDonacion from "./modulos/Donacion/vista/VistaDonacion";
 
 function App() {
     const location = useLocation();
@@ -43,6 +44,12 @@ function App() {
                             element={<CardDonante />}
                         />
                         <Route path="/donar/nuevo" element={<FormDonacion />} />
+
+                        <Route
+                            path="/donar/vista"
+                            element={<VistaDonacion />}
+                        />
+
                         <Route
                             path="/inventario/vista"
                             element={<VistaInventario />}
