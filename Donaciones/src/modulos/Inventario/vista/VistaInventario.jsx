@@ -1,51 +1,51 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { eliminarUnDonante, obtenerDonantesRequest } from "../api/donante.api";
+import {
+    eliminarInventarioRequest,
+    obtenerInventarioRequest,
+} from "../api/inventario.api";
 import ReactPaginate from "react-paginate";
-import { Link } from "react-router-dom";
-import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import { toast } from "react-hot-toast";
-import AddIcon from "@mui/icons-material/Add";
 
-function VistaDonante() {
-    const [donacion, setDonacion] = useState([]);
-    const [filterPedido, setFilterPedido] = useState([]);
+function VistaInventario() {
+    const [inventario, setInventario] = useState([]);
+    const [filterInventario, setFilterInventario] = useState([]);
 
     const [currentItems, setCurrentItems] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
     const itemsPerPage = 10;
 
-    const cargarDonacion = async () => {
+    const obtenerInventario = async () => {
         try {
-            const rp = await obtenerDonantesRequest();
-            setDonacion(rp.data);
-            setFilterPedido(rp.data);
+            const rp = await obtenerInventarioRequest();
+            setInventario(rp.data);
+            setFilterInventario(rp.data);
         } catch (error) {
             console.log(error);
         }
     };
     const filtrado = (filter) => {
         const valorFiltro = filter.target.value.toLowerCase();
-        const nuevosDonantes = donacion.filter((donante) => {
+        const nuevosDonantes = inventario.filter((donante) => {
             return Object.values(donante).some((valor) => {
                 return String(valor).toLowerCase().includes(valorFiltro);
             });
         });
-        setFilterPedido(nuevosDonantes);
+        setFilterInventario(nuevosDonantes);
     };
     const handlePageClick = (e) => {
-        const newOffset = (e.selected * itemsPerPage) % filterPedido.length;
+        const newOffset = (e.selected * itemsPerPage) % filterInventario.length;
         setItemOffset(newOffset);
     };
 
     const eliminar = async (id) => {
         try {
-            const rp = await eliminarUnDonante(id);
+            const rp = await eliminarInventarioRequest(id);
             toastSucess();
-            setFilterPedido(
-                filterPedido.filter((fill) => fill.donanteid != id)
+            setFilterInventario(
+                filterInventario.filter((fill) => fill.inventarioid != id)
             );
         } catch (error) {
             console.log(error);
@@ -64,13 +64,13 @@ function VistaDonante() {
     };
 
     useEffect(() => {
-        cargarDonacion();
+        obtenerInventario();
     }, []);
     useEffect(() => {
         const endOffset = itemOffset + itemsPerPage;
-        setCurrentItems(filterPedido.slice(itemOffset, endOffset));
-        setPageCount(Math.ceil(filterPedido.length / itemsPerPage));
-    }, [itemOffset, filterPedido]);
+        setCurrentItems(filterInventario.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(filterInventario.length / itemsPerPage));
+    }, [itemOffset, filterInventario]);
 
     return (
         <div>
@@ -80,18 +80,9 @@ function VistaDonante() {
                         <div className="py-8">
                             <div className="flex w-full justify-start font-sans font-semibold text-xl py-2 ml-4 mt-20">
                                 <p className="text-black font-bold">
-                                    DONACIONES
+                                    INVENTARIO
                                 </p>
                             </div>
-                            <div className="flex w-full justify-start font-sans font-semibold text-xl py-2 ml-4 mt-2">
-                                <Link
-                                    to="/donacion/agregar"
-                                    className="px-2 py-2 text-black font-semibold bg-gray-100 hover:bg-gray-300 rounded border-2"
-                                >
-                                    <AddIcon /> Nuevo
-                                </Link>
-                            </div>
-
                             <div className="my-2 flex justify-start mr-4 ml-4 p-1 rounded sm:flex-row flex-col">
                                 <div className="block relative">
                                     <span className="h-full absolute inset-y-0 left-0 flex items-center pl-2">
@@ -109,6 +100,7 @@ function VistaDonante() {
                                         className="appearance-none rounded-r rounded sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-gray-100 text-sm placeholder-gray-700 text-gray-900 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                                     />
                                 </div>
+                                <div></div>
                             </div>
 
                             <div>
@@ -132,21 +124,15 @@ function VistaDonante() {
                                                                 </th>
                                                                 <th className="p-2 whitespace-nowrap">
                                                                     <div className="font-semibold text-left">
-                                                                        TELEFONO
+                                                                        DESCRIPCION
                                                                     </div>
                                                                 </th>
                                                                 <th className="p-2 whitespace-nowrap">
                                                                     <div className="font-semibold text-left">
-                                                                        DONACIÓN
+                                                                        CANTIDAD
                                                                     </div>
                                                                 </th>
-
                                                                 <th className="p-2 whitespace-nowrap">
-                                                                    <div className="font-semibold text-left">
-                                                                        ESTADO
-                                                                    </div>
-                                                                </th>
-                                                                <th className="p-2 whitespace-nowrap w-20">
                                                                     <div className="font-semibold text-left">
                                                                         ACCIONES
                                                                     </div>
@@ -162,57 +148,44 @@ function VistaDonante() {
                                                                 ) => (
                                                                     <tr
                                                                         key={
-                                                                            tipo.donanteid
+                                                                            tipo.inventarioid
                                                                         }
                                                                     >
                                                                         <td className="p-2 whitespace-nowrap w-10 ">
                                                                             <div className="text-left">
                                                                                 {
-                                                                                    tipo.donanteid
+                                                                                    tipo.inventarioid
                                                                                 }
                                                                             </div>
                                                                         </td>
                                                                         <td className="p-2 whitespace-nowrap max-w-32 text-wrap">
                                                                             <div className="text-left">
                                                                                 {
-                                                                                    tipo.donantenombre
+                                                                                    tipo.inventarionombre
                                                                                 }
                                                                             </div>
                                                                         </td>
                                                                         <td className="p-2 whitespace-nowrap w-32 text-wrap">
                                                                             <div className="text-left">
                                                                                 {
-                                                                                    tipo.donantetelefono
+                                                                                    tipo.inventariodescripcion
                                                                                 }
                                                                             </div>
                                                                         </td>
                                                                         <td className="p-2 whitespace-nowrap max-w-40 text-wrap">
                                                                             <div className="text-left">
                                                                                 {
-                                                                                    tipo.donantedonacion
+                                                                                    tipo.inventariocantidad
                                                                                 }
                                                                             </div>
                                                                         </td>
-
-                                                                        <td className="p-2 whitespace-nowrap w-28 text-wrap">
-                                                                            <div className=" text-black p-1 rounded text-left w-24">
-                                                                                Pendiente
-                                                                            </div>
-                                                                        </td>
-
-                                                                        <td className="p-2 whitespace-nowrap w-20">
+                                                                        <td className="p-2 whitespace-nowrap w-10">
                                                                             <div className="text-right -ml-10 flex justify-end gap-2">
-                                                                                <Link
-                                                                                    className=" text-green-700 font-light tracking-wide rounded text-xs"
-                                                                                    to={`/donacion/vista/${tipo.donanteid}`}
-                                                                                >
-                                                                                    <VisibilityRoundedIcon />
-                                                                                </Link>
-                                                                                <div className="ml-2 text-red-500">
+                                                                                <div className="text-red-500">
                                                                                     <button
                                                                                         onClick={() => {
                                                                                             eliminar(
-                                                                                                tipo.donanteid
+                                                                                                tipo.inventarioid
                                                                                             );
                                                                                         }}
                                                                                         type="button"
@@ -255,7 +228,7 @@ function VistaDonante() {
                                                         />
                                                     </div>
                                                     <div className="w-full flex items-center justify-center">
-                                                        {filterPedido.length ==
+                                                        {filterInventario.length ==
                                                         0 ? (
                                                             <div className="font-mono text-amber-800 text-base mt-5 text-justify">
                                                                 {" "}
@@ -278,4 +251,4 @@ function VistaDonante() {
     );
 }
 
-export default VistaDonante;
+export default VistaInventario;

@@ -11,3 +11,7 @@ export const obtenerDonantesRequest = async()=>{
 export const obtenerUnaDonante = async(id)=>{
     return await axios.get(`${import.meta.env.VITE_BACKEND_URL}/donante/obtener/${id}`);
 }
+
+export const eliminarUnDonante = async(id)=>{
+    return await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/donante/eliminar/${id}`);
+}

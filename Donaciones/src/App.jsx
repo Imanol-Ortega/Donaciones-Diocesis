@@ -7,12 +7,17 @@ import NotFound from "./componentes/NotFound/NotFound";
 import FormDonacion from "./modulos/Donacion/formulario/FormDonacion";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
+import NavBar from "./componentes/Navbar/NavBar";
+import { useLocation } from "react-router-dom";
+import VistaInventario from "./modulos/Inventario/vista/VistaInventario";
 
 function App() {
+    const location = useLocation();
     return (
         <>
             <div className="h-full">
                 <div className="mx-auto">
+                    {location.pathname !== "/donacion/nuevo" && <NavBar />}
                     <Routes>
                         <Route path="*" element={<NotFound />} />
                         <Route
@@ -24,6 +29,10 @@ function App() {
                             element={<FormDonante />}
                         />
                         <Route
+                            path="/donacion/agregar"
+                            element={<FormDonante />}
+                        />
+                        <Route
                             path="/donacion/vista"
                             element={<VistaDonante />}
                         />
@@ -32,6 +41,10 @@ function App() {
                             element={<CardDonante />}
                         />
                         <Route path="/donar/nuevo" element={<FormDonacion />} />
+                        <Route
+                            path="/inventario/vista"
+                            element={<VistaInventario />}
+                        />
                     </Routes>
                     <Toaster />
                     <Analytics />

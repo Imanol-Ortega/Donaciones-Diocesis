@@ -53,8 +53,7 @@ function CardDonante() {
             inventarioTemp.donanteid == 0
         ) {
             setError("Complete los campos");
-        }
-        {
+        } else {
             setInventario([
                 ...inventario,
                 {
@@ -147,6 +146,8 @@ function CardDonante() {
                                                     style={{
                                                         height: 400,
                                                         maxWidth: "md",
+                                                        zIndex: 10,
+                                                        position: "relative",
                                                     }}
                                                 >
                                                     <TileLayer
