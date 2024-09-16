@@ -34,8 +34,8 @@ function FormDonacion() {
                     institucionid: institucionSelect,
                     inventario: inventarioRender,
                 });
-                navigate("/donacion/vista");
                 toastSucess();
+                navigate("/donacion/vista");
             }
         } catch (error) {
             console.log(error);
@@ -143,15 +143,15 @@ function FormDonacion() {
         control: (styles) => ({
             ...styles,
             backgroundColor: "white",
-            borderColor: "#ccc",
+            borderColor: "#f0f0f0",
         }),
         option: (styles, { data, isDisabled, isFocused, isSelected }) => {
             return {
                 ...styles,
-                backgroundColor: isDisabled ? "#ccc" : "#ccc",
+                backgroundColor: isDisabled ? "#f0f0f0" : "#f0f0f0",
                 color: "#000",
                 ":hover": {
-                    backgroundColor: "gray",
+                    backgroundColor: "white",
                 },
                 cursor: isDisabled ? "not-allowed" : "default",
             };

@@ -10,6 +10,8 @@ import { Analytics } from "@vercel/analytics/react";
 import NavBar from "./componentes/Navbar/NavBar";
 import { useLocation } from "react-router-dom";
 import VistaInventario from "./modulos/Inventario/vista/VistaInventario";
+import FormInstitucion from "./modulos/Institucion/formulario/FormInstitucion";
+import VistaInstitucion from "./modulos/Institucion/vista/VistaInstitucion";
 
 function App() {
     const location = useLocation();
@@ -44,6 +46,15 @@ function App() {
                         <Route
                             path="/inventario/vista"
                             element={<VistaInventario />}
+                        />
+
+                        <Route
+                            path="/institucion/nuevo"
+                            element={<FormInstitucion />}
+                        />
+                        <Route
+                            path="/institucion/vista"
+                            element={<VistaInstitucion />}
                         />
                     </Routes>
                     <Toaster />
