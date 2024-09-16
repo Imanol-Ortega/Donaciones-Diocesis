@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { Link, useLocation } from "react-router-dom";
 
 function FormDonante() {
     const {
@@ -34,7 +35,7 @@ function FormDonante() {
         -27.338697141418727, -55.86717871248513,
     ]);
     const [errorMap, setErrorMap] = useState("");
-
+    const location = useLocation();
     let DefaultIcon = L.icon({
         iconUrl: icon,
         shadowUrl: iconShadow,
@@ -114,13 +115,15 @@ function FormDonante() {
                     <div className="w-full max-w-lg">
                         <div className="leading-loose ">
                             <div className="mt-0 sm:mt-72 sm:mb-10 2xl:mt-0 2xl:mb-0">
-                                <div className="max-w-full flex justify-center align-middle p-2 ">
-                                    <img
-                                        src={Diocesis}
-                                        alt="img"
-                                        className="w-48 h-48 rounded-full object-cover"
-                                    />
-                                </div>
+                                {location.pathname == "/donacion/nuevo" && (
+                                    <div className="max-w-full flex justify-center align-middle p-2 ">
+                                        <img
+                                            src={Diocesis}
+                                            alt="img"
+                                            className="w-48 h-48 rounded-full object-cover"
+                                        />
+                                    </div>
+                                )}
                                 <form
                                     onSubmit={submit}
                                     className="max-w-full p-10 bg-green-900 rounded shadow-xl flex justify-center flex-col font-thin"
@@ -267,13 +270,22 @@ function FormDonante() {
                                             El campo esta vacío
                                         </div>
                                     )}
-                                    <div className="w-full flex justify-center">
+                                    <div className="w-full flex justify-start">
                                         <button
                                             className="px-4 py-1 mt-4 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
                                             type="submit"
                                         >
                                             Guardar
                                         </button>
+                                        {location.pathname !==
+                                            "/donacion/nuevo" && (
+                                            <Link
+                                                className=" ml-4 px-4 py-1.5 mt-4 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
+                                                to="/donacion/vista"
+                                            >
+                                                Volver
+                                            </Link>
+                                        )}
                                     </div>
                                 </form>
                             </div>

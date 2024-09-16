@@ -78,7 +78,7 @@ function VistaDonante() {
                 <div className="container mx-auto h-full flex flex-1 justify-center items-center">
                     <div className="w-full max-w-6xl h-[100vh]">
                         <div className="py-8">
-                            <div className="flex w-full justify-start font-sans font-semibold text-xl py-2 ml-4 mt-20">
+                            <div className="flex w-full justify-start font-sans font-semibold text-xl py-2 ml-4 mt-16">
                                 <p className="text-black font-bold">
                                     DONACIONES
                                 </p>
