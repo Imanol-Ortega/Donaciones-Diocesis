@@ -99,7 +99,7 @@ function FormInstitucion() {
                                             El campo esta vacío
                                         </div>
                                     )}
-                                    <div className="w-full flex justify-start">
+                                    <div className="">
                                         <button
                                             className="px-4 py-1 mt-4 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
                                             type="submit"
@@ -109,7 +109,7 @@ function FormInstitucion() {
                                         {location.pathname !==
                                             "/donacion/nuevo" && (
                                             <Link
-                                                className=" ml-4 px-4 py-1.5 mt-4 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
+                                                className=" ml-2 px-4 py-2.5 text-black font-semibold tracking-wider bg-gray-100 hover:bg-gray-300 rounded border-2"
                                                 to="/donacion/vista"
                                             >
                                                 Volver
