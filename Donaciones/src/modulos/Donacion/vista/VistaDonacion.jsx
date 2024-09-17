@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
-import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import { toast } from "react-hot-toast";
 import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
-import { obtenerDonacionRequest } from "../api/donacion.api";
+import {
+    eliminarDonadoRequest,
+    obtenerDonacionRequest,
+} from "../api/donacion.api";
 
 function VistaDonacion() {
     const [donacion, setDonacion] = useState([]);
@@ -41,11 +43,11 @@ function VistaDonacion() {
     };
     const eliminar = async (id) => {
         try {
-            /*  const rp = await eliminarUnDonante(id);
+            const rp = await eliminarDonadoRequest(id);
             toastSucess();
             setFilterDonacion(
-                filterPedido.filter((fill) => fill.donanteid != id)
-            );*/
+                filterDonacion.filter((fill) => fill.cabecera_donadoid != id)
+            );
         } catch (error) {
             console.log(error);
         }
@@ -143,11 +145,11 @@ function VistaDonacion() {
                                                                         DONADO
                                                                     </div>
                                                                 </th>
-                                                                {/*<th className="p-2 whitespace-nowrap w-20">
+                                                                <th className="p-2 whitespace-nowrap w-20">
                                                                     <div className="font-semibold text-left">
                                                                         ACCIONES
                                                                     </div>
-                                                                </th>*/}
+                                                                </th>
                                                             </tr>
                                                         </thead>
 
@@ -159,13 +161,13 @@ function VistaDonacion() {
                                                                 ) => (
                                                                     <tr
                                                                         key={
-                                                                            tipo.institucionid
+                                                                            tipo.cabecera_donadoid
                                                                         }
                                                                     >
                                                                         <td className="p-2 whitespace-nowrap w-10 ">
                                                                             <div className="text-left">
                                                                                 {
-                                                                                    tipo.institucionid
+                                                                                    tipo.cabecera_donadoid
                                                                                 }
                                                                             </div>
                                                                         </td>
@@ -186,7 +188,7 @@ function VistaDonacion() {
                                                                         <td className="p-2 whitespace-nowrap max-w-40 text-wrap">
                                                                             <div className="text-left">
                                                                                 {
-                                                                                    tipo.inventario_detallado
+                                                                                    tipo.inventario_donado
                                                                                 }
                                                                             </div>
                                                                         </td>
@@ -198,19 +200,13 @@ function VistaDonacion() {
                                                                             </div>
                                                                         </td>
 
-                                                                        {/*<td className="p-2 whitespace-nowrap w-20">
+                                                                        <td className="p-2 whitespace-nowrap w-20">
                                                                             <div className="text-right -ml-10 flex justify-end gap-2">
-                                                                                <Link
-                                                                                    className=" text-green-700 font-light tracking-wide rounded text-xs"
-                                                                                    to={`/donacion/vista/${tipo.donanteid}`}
-                                                                                >
-                                                                                    <VisibilityRoundedIcon />
-                                                                                </Link>
                                                                                 <div className="ml-2 text-red-500">
                                                                                     <button
                                                                                         onClick={() => {
                                                                                             eliminar(
-                                                                                                tipo.donanteid
+                                                                                                tipo.cabecera_donadoid
                                                                                             );
                                                                                         }}
                                                                                         type="button"
@@ -222,7 +218,7 @@ function VistaDonacion() {
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
-                                                                        </td>*/}
+                                                                        </td>
                                                                     </tr>
                                                                 )
                                                             )}

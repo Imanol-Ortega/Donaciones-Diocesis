@@ -35,7 +35,7 @@ function FormDonacion() {
                     inventario: inventarioRender,
                 });
                 toastSucess();
-                navigate("/donacion/vista");
+                navigate("/donar/vista");
             }
         } catch (error) {
             console.log(error);

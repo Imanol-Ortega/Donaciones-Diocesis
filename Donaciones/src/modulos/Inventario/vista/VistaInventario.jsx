@@ -158,21 +158,21 @@ function VistaInventario() {
                                                                                 }
                                                                             </div>
                                                                         </td>
-                                                                        <td className="p-2 whitespace-nowrap max-w-32 text-wrap">
+                                                                        <td className="p-2 whitespace-nowrap max-w-40 text-wrap">
                                                                             <div className="text-left">
                                                                                 {
                                                                                     tipo.inventarionombre
                                                                                 }
                                                                             </div>
                                                                         </td>
-                                                                        <td className="p-2 whitespace-nowrap w-32 text-wrap">
+                                                                        <td className="p-2 whitespace-nowrap max-w-40 text-wrap">
                                                                             <div className="text-left">
                                                                                 {
                                                                                     tipo.inventariodescripcion
                                                                                 }
                                                                             </div>
                                                                         </td>
-                                                                        <td className="p-2 whitespace-nowrap max-w-40 text-wrap">
+                                                                        <td className="p-2 whitespace-nowrap max-w-10 text-wrap">
                                                                             <div className="text-left">
                                                                                 {
                                                                                     tipo.inventariocantidad

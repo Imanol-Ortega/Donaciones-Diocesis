@@ -6,4 +6,8 @@ export const guardarDonacionRequest = async(values)=>{
 
 export const obtenerDonacionRequest = async()=>{
     return await axios.get(`${import.meta.env.VITE_BACKEND_URL}/donado/obtener`)
+};
+
+export const eliminarDonadoRequest = async(id)=>{
+    return await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/donado/eliminar/${id}`);
 }
